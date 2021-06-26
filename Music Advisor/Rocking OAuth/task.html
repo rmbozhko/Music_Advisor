@@ -25,7 +25,7 @@ In our case, using the Spotify API, it will look like this:</p>
 
 <ol>
 	<li>The user follows this link and confirms access.</li>
-	<li>Then the user is redirected to <code class="java">redirect_url</code> with the response in the URL (<code class="java">http://www.example.com?code=7angkqw2DAsdfkQ</code>). (Your own server waiting for <code class="java">code</code>.)</li>
+	<li>Then the user is redirected to <code class="java">redirect_uri</code> with the response in the URL (<code class="java">http://www.example.com?code=7angkqw2DAsdfkQ</code>). (Your own server waiting for <code class="java">code</code>.)</li>
 	<li>You use this <code class="java">code</code> to get <code class="java">access_token</code> and make requests to an API.</li>
 </ol>
 
