@@ -15,10 +15,16 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * The engine of the advisor. Here are all the methods of work.
+ * ModelService contains all available for Music Advisor services and reference to ModelAuthorisation
+ * to check whether user is allowed to run certain queries.
  */
-public class Service {
+public class ModelService {
     private boolean isAuthorised = false;
+    private ModelAuthorisation authorisation;
+
+    public ModelService(ModelAuthorisation modelAuthorisation) {
+        authorisation = modelAuthorisation;
+    }
 
     public boolean isAuthorised() {
         return this.isAuthorised;
@@ -29,7 +35,6 @@ public class Service {
     }
 
     public void authorize() {
-        Authorisation authorisation = new Authorisation();
         authorisation.getAccessCode();
         authorisation.getAccessToken();
         this.isAuthorised = true;
@@ -123,7 +128,7 @@ public class Service {
 
                 for (JsonElement category : categoriesData) {
                     JsonObject categoryData = category.getAsJsonObject();
-                    builder.append(categoryData.get("name").getAsString()).append("\n");
+                    builder.append(categoryData.get("name").getAsString()).append("\n\n");
                 }
                 return builder.toString();
             }
@@ -193,8 +198,8 @@ abstract class Request {
 
     protected String makeRequestToAPI() {
         HttpRequest request = HttpRequest.newBuilder()
-                .header("Authorization", "Bearer " + Authorisation.ACCESS_TOKEN)
-                .uri(URI.create(Authorisation.API_PATH + this.uriPath))
+                .header("Authorization", "Bearer " + ModelAuthorisation.ACCESS_TOKEN)
+                .uri(URI.create(ModelAuthorisation.API_PATH + this.uriPath))
                 .GET()
                 .build();
         HttpClient client = HttpClient.newBuilder().build();

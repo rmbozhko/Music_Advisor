@@ -12,10 +12,10 @@ import java.net.URI;
 
 
 /**
- * The authorization class. Here we get the authorization code
- * and use it to get the authorization token
+ * The AuthorisationModel class is used to establish connection with Spotify API, retrieve access token
+ * and run local server for redirection.
  */
-public class Authorisation {
+public class ModelAuthorisation {
     public static String SERVER_PATH = "https://accounts.spotify.com";
     public static String API_PATH = "https://api.spotify.com";
     public static String REDIRECT_URI = "http://localhost:8080";
@@ -97,7 +97,7 @@ public class Authorisation {
 
             assert response != null;
             System.out.println(response.body());
-            Authorisation.ACCESS_TOKEN = JsonParser.parseString(response.body())
+            ModelAuthorisation.ACCESS_TOKEN = JsonParser.parseString(response.body())
                                                     .getAsJsonObject()
                                                     .get("access_token")
                                                     .getAsString();
